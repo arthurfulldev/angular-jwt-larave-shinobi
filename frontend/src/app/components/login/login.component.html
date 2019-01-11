@@ -1,22 +1,32 @@
 <div class="col-md-12">
-    <form class="form">
-        <div class="row">
-            <div class="col-md-8 d-flex align-content-center flex-wrap">
-                <mat-form-field>
-                    <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
-                    <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
-                        <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
-                        <span>{{state.name}}</span> |
-                    </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-                <mat-slide-toggle
-                    [checked]="stateCtrl.disabled"
-                    (change)="stateCtrl.disabled ? stateCtrl.enable() : stateCtrl.disable()">
-                    Disable Input?
-                </mat-slide-toggle>
-            </div>
+    <form class="form" [formGroup]="frmLogin" (submit)="ingresar()" novalidate>
+        <div *ngIf="message" class="alert" role="alert">
+            {{message}}
         </div>
+        <mat-form-field>
+            <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" formControlName="stateInput">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                    <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
+                    <span>{{state.name}}</span>
+                </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="frmLogin.get('stateInput').errors">
+                {{ frmLogin.get('stateInput').errors.message }}
+            </mat-error>
+        </mat-form-field><br>
+        <mat-form-field>
+            <input matInput type="email" formControlName="email" placeholder="Correo electrónico">
+            <mat-error *ngIf="frmLogin.get('email').errors">
+                {{ frmLogin.get('email').errors.message }}
+            </mat-error>
+        </mat-form-field><br>
+        <mat-form-field>
+            <input matInput type="password" formControlName="password" placeholder="Escribe contraseña">
+            <mat-error *ngIf="frmLogin.get('password').errors">
+                    {{ frmLogin.get('password').errors.message }}
+                </mat-error>
+        </mat-form-field><br>
+        <button mat-raised-button type="submit" color="primary">Ingresar.</button>
     </form>
 </div>
