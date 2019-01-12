@@ -1,5 +1,3 @@
-import { AbstractControl } from  '@angular/forms';
-
 export const STATES = [
     { flag: "https://st-listas.20minutos.es/images/2013-05/362056/4038531_249px.jpg?1370033492", name: "Jalisco" },
     { flag: "https://st-listas.20minutos.es/images/2013-05/362056/4038539_249px.jpg?1370033492", name: "Oaxaca" },
@@ -34,25 +32,3 @@ export const STATES = [
     { flag: "https://st-listas.20minutos.es/images/2013-05/362056/4038534_249px.jpg?1370033492", name: "Morelos" },
     { flag: "https://st-listas.20minutos.es/images/2013-05/362056/4038518_249px.jpg?1370033492", name: "Campeche" },
 ];
-
-export function existState ( control ): {[key: string]: any}
-{
-    let res = null;
-    for ( let state of STATES ) {
-        if( control.value == state.name ){
-            res = true;
-        }
-    }
-
-    if ( control.value == "" || control.pristine )
-    {
-        return null;
-    }
-
-    return ( ! res ) ? { 
-        'message': 'Estado incorrecto', 
-        'value' : res,
-        'error': undefined 
-    } 
-    : null;
-}

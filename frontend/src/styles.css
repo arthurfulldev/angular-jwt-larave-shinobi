@@ -1,2 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.mat-form-field{
+    display: block !important;
+}
+
+.mat-radio-button {
+    margin-right: 1rem;
+}
+
+.jumbotron {
+    padding: 2rem;
+    margin-bottom: 0;
+}

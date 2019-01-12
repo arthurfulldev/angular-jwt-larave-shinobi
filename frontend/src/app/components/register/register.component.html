@@ -1,3 +1,154 @@
-<p>
-  register works!
-</p>
+<div class="row jumbotron">
+    <div class="col-md-8 offset-md-2">
+        <strong>User name: </strong>
+        {{ frmCredentialsData.get('email').value }} 
+    </div>
+    <div class="col-md-4 offset-md-2">
+        <strong>Nombre: </strong>
+            {{ frmPersonalData.get('name').value }} 
+            {{ frmPersonalData.get('paternal_lastname').value }} 
+            {{ frmPersonalData.get('maternal_lastname').value }} <br>
+        <strong>Genero: </strong>
+            {{ frmPersonalData.get('genre').value | genre }} <br>
+        <strong>Edad: </strong>
+            {{ frmPersonalData.get('age').value }}
+    </div>
+    <div class="col-md-4">
+        <strong>Calle y número(s)</strong>
+            {{ frmAddressData.get('street').value }}
+            {{ frmAddressData.get('external_number').value }}
+            {{ frmAddressData.get('internal_number').value }} <br>
+        <strong>Colonia</strong>
+            {{ frmAddressData.get('city').value }} <br>
+        <strong>Alcaldia</strong>
+            {{ frmAddressData.get('thownship').value }} <br>
+        <strong>Estado: </strong>
+            {{ frmAddressData.get('state').value }} <br>
+        <strong>País: </strong>
+            {{ frmAddressData.get('country').value }} <br>
+        <strong>Código postal: </strong>
+            {{ frmAddressData.get('zip_code').value }}
+    </div>
+    
+</div><br><br>
+
+<div class="row justify-content-md-center">
+    
+    <div class="col-md-8 ">
+        <button mat-raised-button (click)="isEditable = !isEditable">
+            {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
+        </button>
+
+        <mat-horizontal-stepper linear #stepper>
+            <mat-step [stepControl]="frmPersonalData" [editable]="isEditable">
+                <form [formGroup]="frmPersonalData">
+                    <ng-template matStepLabel>Información personal</ng-template>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Nombre(s)" formControlName="name">
+                        <mat-error *ngIf="frmPersonalData.get('name').errors">
+                            {{ frmPersonalData.get('name').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Apellido paterno" formControlName="paternal_lastname">
+                        <mat-error *ngIf="frmPersonalData.get('paternal_lastname').errors">
+                            {{ frmPersonalData.get('paternal_lastname').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Apellido materno" formControlName="maternal_lastname">
+                        <mat-error *ngIf="frmPersonalData.get('maternal_lastname').errors">
+                            {{ frmPersonalData.get('maternal_lastname').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-radio-group formControlName="genre">
+                        <mat-radio-button value="H">Hombre</mat-radio-button>
+                        <mat-radio-button value="M">Mujer</mat-radio-button>
+                    </mat-radio-group>
+
+                    <mat-form-field>
+                        <input matInput type="number" placeholder="Edad" formControlName="age">
+                        <mat-error *ngIf="frmPersonalData.get('age').errors">
+                            {{ frmPersonalData.get('age').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <div>
+                        <button mat-raised-button matStepperNext color="primary">Siguiente.</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="frmAddressData" [editable]="isEditable">
+                <form [formGroup]="frmAddressData">
+                    <ng-template matStepLabel>Agrega tu dirección</ng-template>
+                    <mat-form-field>
+                        <input matInput placeholder="Calle" formControlName="street">
+                        <mat-error *ngIf="frmAddressData.get('street').errors">
+                            {{ frmAddressData.get('street').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Número" formControlName="external_number">
+                        <mat-error *ngIf="frmAddressData.get('external_number').errors">
+                            {{ frmAddressData.get('external_number').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Número Interior" formControlName="internal_number">
+                        <mat-error *ngIf="frmAddressData.get('internal_number').errors">
+                            {{ frmAddressData.get('internal_number').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Colonia o asentamiento" formControlName="city">
+                        <mat-error *ngIf="frmAddressData.get('city').errors">
+                            {{ frmAddressData.get('city').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Alcaldia, Delegacion o Municipio" formControlName="thownship">
+                        <mat-error *ngIf="frmAddressData.get('thownship').errors">
+                            {{ frmAddressData.get('thownship').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" formControlName="state">
+                        <mat-icon matSuffix *ngIf="frmAddressData.get('state').valid" class="text-success">done</mat-icon>
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                                <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
+                                <span>{{state.name}}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="frmAddressData.get('state').errors">
+                            {{ frmAddressData.get('state').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Pais" formControlName="country">
+                        <mat-error *ngIf="frmAddressData.get('country').errors">
+                            {{ frmAddressData.get('country').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Código Postal" formControlName="zip_code">
+                        <mat-error *ngIf="frmAddressData.get('zip_code').errors">
+                            {{ frmAddressData.get('zip_code').errors.message }}
+                        </mat-error>
+                    </mat-form-field>
+                    <div>
+                        <button mat-raised-button matStepperPrevious color="primary">Anterior.</button>&nbsp;
+                        <button mat-raised-button matStepperNext color="primary">Siguiente.</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Registrar</ng-template>
+                El primer filtro de verificacion aprobado has click en registrar.
+                <div>
+                    <button mat-raised-button color="primary">Registrar.</button>
+                    <button mat-button (click)="stepper.reset()">Reset</button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </div>
+</div>
