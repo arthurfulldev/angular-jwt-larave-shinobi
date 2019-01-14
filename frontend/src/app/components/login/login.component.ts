@@ -14,6 +14,8 @@ export class LoginComponent {
 
     public message = null;
 
+    public hide = true;
+
     constructor( 
         private fb: FormBuilder,
     ) {

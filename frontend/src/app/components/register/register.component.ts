@@ -33,16 +33,16 @@ const ADDRESS = {
 })
 
 export class RegisterComponent implements OnInit {
-  private frmPersonalData: FormGroup;
-  private frmAddressData: FormGroup;
-  private frmCredentialsData: FormGroup;
+  public frmPersonalData: FormGroup;
+  public frmAddressData: FormGroup;
+  public frmCredentialsData: FormGroup;
 
   public user = USER;
   public address = ADDRESS;
 
-  private isEditable = false;
+  public isEditable = false;
 
-  private filteredStates: Observable<State[]>;
+  public filteredStates: Observable<State[]>;
 
   constructor(
     private fb: FormBuilder

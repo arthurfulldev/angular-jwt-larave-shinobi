@@ -14,10 +14,10 @@
             {{ frmPersonalData.get('age').value }}
     </div>
     <div class="col-md-4">
-        <strong>Calle y número(s)</strong>
+        <strong>Calle: </strong>
             {{ frmAddressData.get('street').value }}
-            {{ frmAddressData.get('external_number').value }}
-            {{ frmAddressData.get('internal_number').value }} <br>
+            # {{ frmAddressData.get('external_number').value }}
+            , {{ frmAddressData.get('internal_number').value }} <br>
         <strong>Colonia</strong>
             {{ frmAddressData.get('city').value }} <br>
         <strong>Alcaldia</strong>

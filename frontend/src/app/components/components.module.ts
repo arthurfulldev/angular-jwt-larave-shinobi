@@ -1,30 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes } from '@angular/router';
+import { MaterialModule } from '../material.module';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
-export const appRouter: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: "register", component: RegisterComponent },
-  { path: "remember_pass", component: RegisterComponent },
-  { path: "", redirectTo: "login", pathMatch: "full" },
-  { path: "**", redirectTo: "login" }
-]
+export const Components = [
+    LoginComponent,
+    RegisterComponent
+];
+
+export const ComponentsObj = {
+  "login":    LoginComponent,
+  "register": RegisterComponent
+}
 
 @NgModule({
   imports: [
-      CommonModule
+      CommonModule,
+      MaterialModule
   ],
   exports:[
-    LoginComponent,
-    RegisterComponent
   ],
-  declarations: [
-      LoginComponent,
-      RegisterComponent
-  ]
 })
+
 
 export class ComponentsModule { }
