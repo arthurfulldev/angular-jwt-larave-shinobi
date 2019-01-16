@@ -67,7 +67,7 @@
                     </mat-radio-group>
 
                     <mat-form-field>
-                        <input matInput type="number" placeholder="Edad" formControlName="age">
+                        <input matInput type="number" placeholder="Edad" formControlName="age" min="18" max="65">
                         <mat-error *ngIf="frmPersonalData.get('age').errors">
                             {{ frmPersonalData.get('age').errors.message }}
                         </mat-error>

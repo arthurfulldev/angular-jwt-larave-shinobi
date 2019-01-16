@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, APP_BASE_HREF } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
 
 import { PipesModule } from './pipes/pipes.module';
+
 import { ComponentsModule, Components, ComponentsObj } from './components/components.module'
 
 export const appRouter: Routes = [
@@ -17,12 +20,17 @@ export const appRouter: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule, 
+    FormsModule,
     PipesModule,
     MaterialModule,
     ComponentsModule,
     RouterModule.forRoot(appRouter)
   ],
   exports: [ RouterModule ],
+  providers: [
+    { provide: APP_BASE_HREF, useValue : '/' }
+  ],
   declarations: [
     Components
   ],

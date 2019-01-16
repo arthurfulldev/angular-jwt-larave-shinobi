@@ -50,8 +50,18 @@ export class RegisterComponent implements OnInit {
     
     this.frmPersonalData = fb.group(
       {
-        name:              [ null, Validators.required ],
-        paternal_lastname: [ null, Validators.required ],
+        name:              [ null, [ 
+                                      Validators.required, 
+                                      Validators.minLength(3),
+                                      Validators.maxLength(10),
+                                      Validators.noSpace,
+                                    ]
+                           ],
+        paternal_lastname: [ null, [
+                                      Validators.required,
+                                      Validators.between(3,10)
+                                   ] 
+                           ],
         maternal_lastname: [ null, Validators.required ],
         genre:             [ 'H',  Validators.required ],
         age:               [ null, Validators.required ]
